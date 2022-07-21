@@ -112,3 +112,14 @@ public record ContainerDelete(
     Container Name,
     IDictionary<string, string>? Metadata = null
 ) : BaseRequest;
+
+public record PoolSearch(
+    Guid? PoolId = null,
+    PoolName? Name = null,
+    List<PoolState>? State = null
+);
+
+public record PoolStop(
+    PoolName Name,
+    bool Now
+);
