@@ -167,7 +167,7 @@ public class Creds : ICreds {
 
     public Task<IReadOnlyList<string>> GetRegions()
         => _cache.GetOrCreateAsync<IReadOnlyList<string>>(
-            nameof(Creds)+"."+nameof(GetRegions),
+            nameof(Creds) + "." + nameof(GetRegions),
             async entry => {
                 // cache for one day
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1);
@@ -178,7 +178,7 @@ public class Creds : ICreds {
                     .ToListAsync();
             });
 }
-   
+
 
 class GraphQueryException : Exception {
     public GraphQueryException(string? message) : base(message) {
