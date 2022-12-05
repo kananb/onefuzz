@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net.Http;
 using Scriban;
 
 namespace Microsoft.OneFuzz.Service;
@@ -121,7 +122,10 @@ public abstract class NotificationsBase {
                     TargetUrl = _targetUrl,
                     ReportContainer = _container,
                     ReportFilename = _filename,
-                    ReproCmd = $"onefuzz --endpoint {instanceUrl} repro create_and_connect {_container} {_filename}"
+                    ReproCmd = $"onefuzz --endpoint {instanceUrl} repro create_and_connect {_container} {_filename}",
+                    DownloadDirCmd = $"onefuzz files download_dir {_targetUrl.ParseQueryString()["container"]} repro_dir",
+                    DownloadExeCmd = $"onefuzz containers files get {_report.InputBlob?.Container} {_report.InputBlob?.Name} > repro_dir/{_report.InputBlob?.Name}",
+                    LocalReproCmd = $".\\repro_dir\\{Path.GetFileName(_report.Executable)} {_report.InputBlob?.Name}"
                 });
             }
             return string.Empty;
